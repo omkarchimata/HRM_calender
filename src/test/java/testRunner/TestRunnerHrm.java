@@ -13,7 +13,7 @@ import io.cucumber.junit.CucumberOptions;
 		features=".//Features/applyleave.feature",
 		glue="stepDefinitions",
 		dryRun=false,
-		plugin= {"pretty","html:test-output"}
+		plugin= {"pretty","html:test-output","json:target/cucumber.json"}
 		
 		)
 public class TestRunnerHrm {
