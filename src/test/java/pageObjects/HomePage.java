@@ -88,32 +88,55 @@ public class HomePage {
 	@CacheLookup
 	List<WebElement> dateList;
 	
+	@FindBy(xpath="(//i[@class=\"oxd-icon bi-calendar oxd-date-input-icon\"])[1]")
+	@CacheLookup
+	WebElement inputToGetCalender;
+	//##########################################################
+	//#######                           ####################################
+	//#######               Holiday     ######################################
+	//##########################################################
+	//##########################################################
 	
 	
 	
+	@FindBy(css=".oxd-form-loader")
+	@CacheLookup
+	WebElement loaderForm;
 	
 	public void dateSelection(String stringdate) 
 	{
+		
+		waitHelper.waitForinvisibilityOfElementLocated(loaderForm, 20);
+		// Wait for loader to disappear
+
 		String year=stringdate.split("-")[0];
 		String month=stringdate.split("-")[1];
-		String date =stringdate.split("-")[3];
+		String date =stringdate.split("-")[2];
 		
-		
+		waitHelper.waitForElementToClickble(inputToGetCalender, 20);
+		inputToGetCalender.click();
 		//Select Year
+		waitHelper.waitForElement(yearSelector, 20);
 		yearSelector.click();		
 		WebElement yearList=ldriver.findElement(By.xpath("//div[@class=\"oxd-calendar-selector-year-selected\"]/following-sibling::ul/li[contains(text(),"+year+")]"));
 		yearList.click();
 		
 		//Select month
+		waitHelper.waitForElement(monthSelector, 20);
+		
 		monthSelector.click();
-		WebElement monthList=ldriver.findElement(By.xpath("//ul[@class=\\\"oxd-calendar-dropdown\\\"]//li["+month+"]"));
+		WebElement monthList=ldriver.findElement(By.xpath("//ul[@class='oxd-calendar-dropdown']//li["+month+"]"));
+		waitHelper.waitForElement(monthList, 20);
+		
 		monthList.click();
 		for (int i=0;i<dateList.size();i++)
 		{
 			String k=dateList.get(i).getText();
 			if (k.equals(date)) {
 				WebElement dateElement=dateList.get(i);
+				waitHelper.waitForElement(dateElement, 20);
 				dateElement.click();
+				break;
 					
 				
 				
@@ -192,5 +215,91 @@ public class HomePage {
 		}
 	}
 
+	
+	
+	//#########################################################
 
+	//##########################################################
+		//#######                           ####################################
+		//#######               Holiday     ######################################
+		//##########################################################
+		//##########################################################
+		
+		
+		@FindBy(xpath="//nav[@class=\"oxd-topbar-body-nav\"]//li[5]")
+		@CacheLookup
+		WebElement configureNavButton;
+		
+		
+		
+		@FindBy(xpath="//nav[@class=\"oxd-topbar-body-nav\"]//li[5]/ul/li[4]")
+		@CacheLookup
+		WebElement holidayOfConfigureListButton;
+		
+
+		@FindBy(xpath="//div[@class=\"orangehrm-header-container\"]/button")
+		@CacheLookup
+		WebElement addButtonToAddHoliday;
+		
+		@FindBy(xpath="//div[@class=\"orangehrm-card-container\"]/h6")
+		@CacheLookup
+		WebElement textAddHoliday;
+		
+
+		@FindBy(xpath="(//div[@class=\"oxd-form-row\"][1]//input)[1]")
+		@CacheLookup
+		WebElement holidayName;
+		
+		@FindBy(xpath="(//div[@class=\"oxd-form-row\"][1]//input)[2]")
+		@CacheLookup
+		WebElement dateOfHolidayName;
+		
+		@FindBy(xpath="//div[@class=\"oxd-form-actions\"]//button[@type=\"submit\"]")
+		@CacheLookup
+		WebElement saveButtonToAddHoliday;
+		
+		
+		public void clickOnConfigureButton() {
+			waitHelper.waitForElement(configureNavButton, 20);
+			
+			configureNavButton.click();
+		}
+		
+		public void selectHolidayOption() {
+			waitHelper.waitForElement(holidayOfConfigureListButton, 20);
+			holidayOfConfigureListButton.click();
+			
+		}
+		
+		public boolean validateAvaliabilityOfAddHolidayButton() {
+			waitHelper.waitForElement(addButtonToAddHoliday, 20);
+			return addButtonToAddHoliday.isDisplayed();
+		}
+		public void clickOnAddHolidayButton()
+		{
+			waitHelper.waitForElement(addButtonToAddHoliday, 20);
+			addButtonToAddHoliday.click();
+			
+		}
+		public boolean validateAvaliabilityOfAddHolidayText() {
+			waitHelper.waitForElement(textAddHoliday, 20);
+			return textAddHoliday.isDisplayed();
+		}
+		
+		public void enterHolidayName(String name)
+		{
+			waitHelper.waitForElement(holidayName, 20);
+			holidayName.sendKeys(name);
+			
+		}
+		
+		public void  saveAddHoliday()
+		{
+			waitHelper.waitForElement(saveButtonToAddHoliday, 20);
+			saveButtonToAddHoliday.click();
+		}
+		
+		
+		
+		
 }

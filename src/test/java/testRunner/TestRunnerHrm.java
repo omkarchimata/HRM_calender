@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features=".//Features/applyleave.feature",
+		features=".//Features/Holiday.feature",
 		glue="stepDefinitions",
 		dryRun=false,
 		plugin= {"pretty",

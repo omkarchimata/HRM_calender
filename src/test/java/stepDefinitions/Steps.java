@@ -111,6 +111,7 @@ public class Steps {
 	@When ("I select From date {string}")
 	public void I_select_From_date(String fromDate)
 	{
+		
 		home.dateSelection(fromDate);
 	}
 	@When ("I select to date {string}")
@@ -125,6 +126,68 @@ public class Steps {
 	{
 		home.clickOnApplyLeaveSubmitButton();
 	}
+	//###############################################
+	//###############################################
+	//###############################################
+	//###############################################
+	@When ("I click on configure button")
+	public void I_click_on_configure_button()
+	{
+		home.clickOnConfigureButton();
+	}
+	
+	@And ("I select Holiday option")
+	public void I_select_Holiday_option(){
+		home.selectHolidayOption();
+	}
+	
+	@Then ("Validate availability of add button")
+	public void Validate_availability_of_add_button() {
+		if (home.validateAvaliabilityOfAddHolidayButton())
+		{
+			
+		}
+		else {
+			Assert.assertFalse(false);
+		}
+	}
+		
+	@When ("I click on Add button")
+	public void I_click_on_Add_button() {
+		home.clickOnAddHolidayButton();
+		
+	}
+	
+	@Then ("Validate Add Holiday")
+	public void Validate_Add_Holiday() {
+		
+		home.validateAvaliabilityOfAddHolidayText();
+	}
+	@And("Enter Holiday Name {string}")
+	public void Enter_Holiday_Name(String Name) {
+		
+		home.enterHolidayName(Name);
+	}
+	
+	@And ("Select holiday date {string}")
+	public void Select_holiday_date(String date) {
+		
+		home.dateSelection(date);
+	}
+    @And ("Select half or full")
+	public void Select_half_or_full()
+	{}
+    @And ("select Repeats Annually")
+	public void  select_Repeats_Annually() {}
+    @And ("click on save")
+	public void click_on_save() {
+    	home.saveAddHoliday();
+    }
+	
+	
+	
+	
+	
 	
 
 
