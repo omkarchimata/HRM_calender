@@ -39,6 +39,12 @@
       <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-plugin -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-plugin</artifactId>
+    <version>7.22.1</version>
+</dependency>
 
     <!-- Gherkin -->
     <dependency>
