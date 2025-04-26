@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+
+  <groupId>nop_commenceV001_cucumber</groupId>
+  <artifactId>nop_commenceV001_cucumber</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>nop_commenceV001_cucumber</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <cucumber.version>7.22.0</cucumber.version>
+    <selenium.version>4.31.0</selenium.version>
+    <junit.version>4.13.2</junit.version>
+    <cucumber.reporting.version>5.8.4</cucumber.reporting.version>
+    <hamcrest.version>3.0</hamcrest.version>
+    <gherkin.version>32.1.1</gherkin.version>
+  </properties>
+
+  <dependencies>
+    <!-- Cucumber -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-core</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Gherkin -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>gherkin</artifactId>
+      <version>${gherkin.version}</version>
+    </dependency>
+
+    <!-- Selenium -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.141.59</version>
+    </dependency>
+    
+    <!-- Reporting -->
+    <dependency>
+      <groupId>net.masterthought</groupId>
+      <artifactId>cucumber-reporting</artifactId>
+      <version>${cucumber.reporting.version}</version>
+    </dependency>
+
+    <!-- Hamcrest -->
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>${hamcrest.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Code Coverage (optional) -->
+    
+  </dependencies>
+  
+
+  <build>
+    <plugins>
+      <!-- Run tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <includes>
+            <include>**/Run*.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    
+    <!-- JaCoCo plugin for code coverage -->
+    <plugin>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.11</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>prepare-agent</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>report</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>report</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
+
+</project>
