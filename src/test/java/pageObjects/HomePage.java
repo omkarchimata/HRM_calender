@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -84,7 +85,7 @@ public class HomePage {
 	WebElement monthList;
 	
 	
-	@FindBy(xpath="div[@class=\"oxd-calendar-date\"]")
+	@FindBy(xpath="//div[@class=\"oxd-calendar-date\"]")
 	@CacheLookup
 	List<WebElement> dateList;
 	
@@ -109,14 +110,21 @@ public class HomePage {
 		waitHelper.waitForinvisibilityOfElementLocated(loaderForm, 20);
 		// Wait for loader to disappear
 
-		String year=stringdate.split("-")[0];
-		String month=stringdate.split("-")[1];
-		String date =stringdate.split("-")[2];
+		Integer date=Integer.parseInt(stringdate.split("-")[0]);
+		Integer month=Integer.parseInt(stringdate.split("-")[1]);
+		Integer year =Integer.parseInt(stringdate.split("-")[2]);
 		
+		 Actions actions = new Actions(ldriver);
+		System.out.println(year);
+		System.out.println(month);
+		System.out.println(date);
 		waitHelper.waitForElementToClickble(inputToGetCalender, 20);
 		inputToGetCalender.click();
 		//Select Year
 		waitHelper.waitForElement(yearSelector, 20);
+		actions.moveToElement(yearSelector);
+		waitHelper.statciWait(2000);
+		
 		yearSelector.click();		
 		WebElement yearList=ldriver.findElement(By.xpath("//div[@class=\"oxd-calendar-selector-year-selected\"]/following-sibling::ul/li[contains(text(),"+year+")]"));
 		yearList.click();
@@ -125,20 +133,27 @@ public class HomePage {
 		waitHelper.waitForElement(monthSelector, 20);
 		
 		monthSelector.click();
-		WebElement monthList=ldriver.findElement(By.xpath("//ul[@class='oxd-calendar-dropdown']//li["+month+"]"));
+		waitHelper.statciWait(2000);
+		WebElement monthList=ldriver.findElement(By.xpath("//ul[@class='oxd-calendar-dropdown']//li["+(month)+"]"));
 		waitHelper.waitForElement(monthList, 20);
 		
 		monthList.click();
+
+	        actions.moveToElement(monthList).perform();
+	        waitHelper.statciWait(2000);
+		System.out.println("The date list is "+dateList.size());
 		for (int i=0;i<dateList.size();i++)
 		{
 			String k=dateList.get(i).getText();
-			if (k.equals(date)) {
+			System.out.println("the K is "+dateList.get(i).getText());
+			if (Integer.parseInt(k) == date) {
 				WebElement dateElement=dateList.get(i);
+				System.out.println("enther to for loop");
 				waitHelper.waitForElement(dateElement, 20);
+		        actions.moveToElement(dateElement).perform();
+		        waitHelper.statciWait(2000);
 				dateElement.click();
 				break;
-					
-				
 				
 			}
 		}
@@ -208,11 +223,7 @@ public class HomePage {
 	public void clickOnApplyLeaveSubmitButton()
 	{
 		applyLeaveSubmitButton.click();
-		try {
-		    Thread.sleep(10000); // 3000 milliseconds = 3 seconds
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		}
+		waitHelper.statciWait(2000);
 	}
 
 	

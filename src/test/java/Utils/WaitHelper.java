@@ -13,6 +13,15 @@ public class WaitHelper {
 	public WaitHelper(WebDriver driver) {
 		this.driver=driver;
 	}
+	
+	public void statciWait(Integer waitInMill)
+	{
+		try {
+		    Thread.sleep(waitInMill); // 3000 milliseconds = 3 seconds
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	}
 
 	public void waitForElement(WebElement element,long timeOutInSeconds)
 	{
