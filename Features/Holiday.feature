@@ -15,7 +15,7 @@ Feature: holiday Feature
     When I click on Add button
     Then Validate Add Holiday 
     And Enter Holiday Name "Automation Day"
-    And Select holiday date "12-5-2027"
+    And Select holiday date "12-6-2027"
     And Validate holiday already added
     And Select half or full
     And select Repeats Annually
