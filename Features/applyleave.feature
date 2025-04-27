@@ -11,7 +11,7 @@ Feature: Apply leave in Orange HRM
     Then validate leave types available
     When I select leave type
     Then check availabile leave count
-    When I select From date "24-04-2025"
+    When I select From date "24-04-2027"
     And I select to date "28-04-2025"
     When I click on apply leave submit button
     And I close browser

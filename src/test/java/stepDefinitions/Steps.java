@@ -163,6 +163,12 @@ public class Steps {
 		
 		home.validateAvaliabilityOfAddHolidayText();
 	}
+	
+	@And ("Validate holiday already added")
+	public void Validate_holiday_already_added()
+	{
+		home.validateHolidayAlreadyExists();
+	}
 	@And("Enter Holiday Name {string}")
 	public void Enter_Holiday_Name(String Name) {
 		

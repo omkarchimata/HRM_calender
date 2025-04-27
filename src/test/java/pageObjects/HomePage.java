@@ -71,7 +71,7 @@ public class HomePage {
 	@CacheLookup
 	WebElement toDateCalender;
 	
-	@FindBy(xpath="//div[@class=\"oxd-calendar-selector-year-selected\"]")
+	@FindBy(xpath="//div[@class=\"oxd-calendar-selector-year-selected\"]/p")
 	@CacheLookup
 	WebElement yearSelector;
 	
@@ -85,7 +85,7 @@ public class HomePage {
 	WebElement monthList;
 	
 	
-	@FindBy(xpath="//div[@class=\"oxd-calendar-date\"]")
+	@FindBy(xpath="//div[@class='oxd-calendar-dates-grid']/div/div")
 	@CacheLookup
 	List<WebElement> dateList;
 	
@@ -103,6 +103,9 @@ public class HomePage {
 	@FindBy(css=".oxd-form-loader")
 	@CacheLookup
 	WebElement loaderForm;
+	@FindBy(xpath="//*[@class=\"oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message\"]")
+	@CacheLookup
+	List<WebElement> alreadyHolidayExistsWarning;
 	
 	public void dateSelection(String stringdate) 
 	{
@@ -118,15 +121,20 @@ public class HomePage {
 		System.out.println(year);
 		System.out.println(month);
 		System.out.println(date);
+		
+		
 		waitHelper.waitForElementToClickble(inputToGetCalender, 20);
 		inputToGetCalender.click();
 		//Select Year
 		waitHelper.waitForElement(yearSelector, 20);
 		actions.moveToElement(yearSelector);
 		waitHelper.statciWait(2000);
+		System.out.println("The selected year is"+yearSelector.getText());
+		
 		
 		yearSelector.click();		
 		WebElement yearList=ldriver.findElement(By.xpath("//div[@class=\"oxd-calendar-selector-year-selected\"]/following-sibling::ul/li[contains(text(),"+year+")]"));
+		waitHelper.waitForElement(yearList, 20);
 		yearList.click();
 		
 		//Select month
@@ -134,6 +142,7 @@ public class HomePage {
 		
 		monthSelector.click();
 		waitHelper.statciWait(2000);
+		System.out.println("The selected month is"+monthSelector.getText());
 		WebElement monthList=ldriver.findElement(By.xpath("//ul[@class='oxd-calendar-dropdown']//li["+(month)+"]"));
 		waitHelper.waitForElement(monthList, 20);
 		
@@ -144,22 +153,20 @@ public class HomePage {
 		System.out.println("The date list is "+dateList.size());
 		for (int i=0;i<dateList.size();i++)
 		{
+			WebElement loopDateElement=dateList.get(i);
 			String k=dateList.get(i).getText();
-			System.out.println("the K is "+dateList.get(i).getText());
-			if (Integer.parseInt(k) == date) {
-				WebElement dateElement=dateList.get(i);
+			System.out.println("the k values is"+k);
+			if (Integer.parseInt(k) == date)
+			{
 				System.out.println("enther to for loop");
-				waitHelper.waitForElement(dateElement, 20);
-		        actions.moveToElement(dateElement).perform();
-		        waitHelper.statciWait(2000);
-				dateElement.click();
-				break;
-				
+				waitHelper.waitForElement(loopDateElement, 20);
+		        actions.moveToElement(loopDateElement).perform();
+		        waitHelper.statciWait(1000);
+		        loopDateElement.click();
+		        break;
+		        		
 			}
 		}
-		
-		
-		
 		
 	}
 
@@ -303,6 +310,25 @@ public class HomePage {
 			holidayName.sendKeys(name);
 			
 		}
+		
+		public void validateHolidayAlreadyExists()
+		{
+			waitHelper.statciWait(2000);
+			if (!alreadyHolidayExistsWarning.isEmpty())
+			{
+				System.out.println("the holiday Already exists");
+				WebElement el = alreadyHolidayExistsWarning.get(0);
+				System.out.println(el.getText());
+				Assert.fail("the holiday Already exists");
+			}
+			else
+			{
+				System.out.println("You can add this Day as holiday");
+
+				
+			}
+		}
+		
 		
 		public void  saveAddHoliday()
 		{
